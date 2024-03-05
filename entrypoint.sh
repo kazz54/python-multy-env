@@ -26,4 +26,5 @@ apt-get update \
         tk-dev \
         libffi-dev
 
-# Start any other services you need to run
+# Start an interactive bash shell
+exec /bin/bash
