@@ -4,10 +4,10 @@ FROM ubuntu:latest
 # Set the working directory
 WORKDIR /app
 
-COPY entrypoint.sh /ai/entrypoint.sh
+COPY entrypoint.sh /app/entrypoint.sh
 
 # Make the entrypoint script executable
-RUN chmod +x /ai/entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
 
 # Install basic dependencies
 RUN apt-get update \
