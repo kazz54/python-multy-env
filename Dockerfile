@@ -4,10 +4,15 @@ FROM ubuntu:latest
 # Set the working directory
 WORKDIR /app
 
-COPY entrypoint.sh /app/entrypoint.sh
+# Install supervisor
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        supervisor \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
-# Make the entrypoint script executable
-RUN chmod +x /app/entrypoint.sh
+# Copy the supervisord configuration file
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Install basic dependencies
 RUN apt-get update \
@@ -20,12 +25,13 @@ RUN apt-get update \
         python3-pip \
         python3-venv \
         python3-dev \
-        supervisor \
         lsb-release \
-        git
+        git \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Copy the rest of your application code
 COPY . /app/
 
-# Start an interactive bash shell
-CMD ["/bin/bash"]
+# Start supervisord to manage processes
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
