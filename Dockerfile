@@ -24,10 +24,8 @@ RUN apt-get update \
         lsb-release \
         git
 
-
-
 # Copy the rest of your application code
 COPY . /app/
 
-# Set the entrypoint script as the default command to run when the container starts
-CMD ["/app/entrypoint.sh"]
+# Start an interactive bash shell
+CMD ["/bin/bash"]
