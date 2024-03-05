@@ -4,19 +4,15 @@ FROM ubuntu:latest
 # Set the working directory
 WORKDIR /app
 
-# Install supervisor
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
+# Update package repositories
+RUN apt-get update
+
+# Set noninteractive mode to prevent prompts during package installation
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install supervisor and basic dependencies
+RUN apt-get install -y --no-install-recommends \
         supervisor \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
-
-# Copy the supervisord configuration file
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-
-# Install basic dependencies
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
         software-properties-common \
         apt-transport-https \
         ca-certificates \
@@ -27,8 +23,33 @@ RUN apt-get update \
         python3-dev \
         lsb-release \
         git \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+        make \
+        build-essential \
+        libssl-dev \
+        zlib1g-dev \
+        libbz2-dev \
+        libreadline-dev \
+        libsqlite3-dev \
+        llvm \
+        libncurses5-dev \
+        libncursesw5-dev \
+        xz-utils \
+        tk-dev \
+        libffi-dev \
+        liblzma-dev
+
+# Install pyenv
+ENV PYENV_ROOT /opt/pyenv
+ENV PATH $PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH
+RUN curl https://pyenv.run | bash \
+    && echo 'eval "$(pyenv init --path)"' >> ~/.bashrc
+
+# Install Python 3.10 and set it as the default version
+RUN pyenv install 3.10.0 \
+    && pyenv global 3.10.0
+
+# Copy the supervisord configuration file
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Copy the rest of your application code
 COPY . /app/
