@@ -76,5 +76,5 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 # Copy the rest of your application code
 COPY . /app/
 
-# Start supervisord to manage processes
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+# Set the entrypoint script as the default command to run when the container starts
+CMD ["/app/entrypoint.sh"]
