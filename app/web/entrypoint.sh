@@ -30,7 +30,7 @@ apt-get install -y --no-install-recommends \
     supervisor
 
 # Copy the supervisord configuration file
-cp /app/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+cp /web/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Install pyenv if not already installed
 if ! command -v pyenv &> /dev/null; then
