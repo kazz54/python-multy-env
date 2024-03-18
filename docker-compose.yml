@@ -1,4 +1,5 @@
 version: '3.8'
+
 services:
   redis:
     build: ./app/redis
@@ -6,8 +7,8 @@ services:
     ports:
       - "6379:6379"
     volumes:
-      - ./app/redis:/opt/redis
-  
+      - redis_data:/opt/redis
+
   web:
     build: ./app/web
     ports:
@@ -23,7 +24,7 @@ services:
       - duckling 
       - redis  
     volumes:
-      - ./app/web:/web
+      - web_data:/web
 
   mydb:
     image: postgres:15
@@ -46,3 +47,7 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=example
+
+volumes:
+  redis_data:
+  web_data:
