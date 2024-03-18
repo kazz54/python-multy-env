@@ -1,12 +1,13 @@
 version: '3.8'
 services:
- redis:
+  redis:
     build: ./app/redis
     container_name: cache
     ports:
       - "6379:6379"
     volumes:
-      - ./app/redis:/opt/redis 
+      - ./app/redis:/opt/redis
+  
   web:
     build: ./app/web
     ports:
@@ -23,7 +24,7 @@ services:
       - redis  
     volumes:
       - ./app/web:/web
-    
+
   mydb:
     image: postgres:15
     restart: always
@@ -43,6 +44,5 @@ services:
     image: mongo
     restart: always
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
-    
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=example
