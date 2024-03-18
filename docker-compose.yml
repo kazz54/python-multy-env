@@ -25,7 +25,7 @@ services:
       - redis  
     volumes:
       - web_data:/web
-
+      - redis_data:/opt/redis
   mydb:
     image: postgres:15
     restart: always
