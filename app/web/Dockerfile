@@ -4,6 +4,14 @@ FROM ubuntu:latest
 # Set the working directory
 WORKDIR /web
 
+# Create the directory for Redis data
+RUN mkdir -p /web/opt/redis
+
+# Set permissions for the directory
+#RUN chown -R your_user:your_group /web/opt/redis
+RUN chmod -R 755 /web/opt/redis
+
+
 # Update package repositories
 RUN apt-get update
 
