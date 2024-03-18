@@ -83,4 +83,4 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY . /web/
 
 # Set the entrypoint script as the default command to run when the container starts
-CMD ["/app/entrypoint.sh"]
+CMD ["/web/entrypoint.sh"]
