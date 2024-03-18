@@ -60,11 +60,15 @@ RUN curl https://pyenv.run | bash \
 RUN pyenv install 3.10.0 \
     && pyenv global 3.10.0
 
-# Install nvm
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
 
 # Use nvm to install Node.js version 18
-RUN /bin/bash -c "source ~/.bashrc && nvm install 18 && nvm alias default 18"
+# Install nvm
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash \
+    && export NVM_DIR="$HOME/.nvm" \
+    && [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" \
+    && [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" \
+    && nvm install 18 \
+    && nvm alias default 18
 
 # Install Node.js version 18 and npm
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
