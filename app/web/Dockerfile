@@ -7,6 +7,12 @@ WORKDIR /web
 # Update package repositories
 RUN apt-get update
 
+# Copy the entrypoint script into the container
+COPY entrypoint.sh /web/entrypoint.sh
+
+# Make the entrypoint script executable
+RUN chmod +x /web/entrypoint.sh
+
 # Set noninteractive mode to prevent prompts during package installation
 ENV DEBIAN_FRONTEND=noninteractive
 
