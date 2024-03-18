@@ -2,7 +2,7 @@
 FROM ubuntu:latest
 
 # Set the working directory
-WORKDIR /app
+WORKDIR /web
 
 # Update package repositories
 RUN apt-get update
@@ -74,7 +74,7 @@ RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Copy the rest of your application code
-COPY . /app/
+COPY . /web/
 
 # Set the entrypoint script as the default command to run when the container starts
 CMD ["/app/entrypoint.sh"]
