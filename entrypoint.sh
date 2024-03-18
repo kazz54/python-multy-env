@@ -50,5 +50,6 @@ if ! pyenv versions | grep -q "3.10.0"; then
     pyenv global 3.10.0
 fi
 
-# Start supervisord to manage processes
-exec supervisord -c /etc/supervisor/conf.d/supervisord.conf
+
+# Start supervisord or any other services you need to run
+/usr/bin/supervisord -c /etc/supervisor/supervisord.conf
